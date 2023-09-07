@@ -5,33 +5,30 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View
 import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
+import com.farrell.mycalculator.databinding.ActivityMainBinding
 import com.google.android.material.textfield.TextInputLayout
 
 class MainActivity : AppCompatActivity() , View.OnClickListener{
-    private lateinit var edtLength: TextInputLayout
-    private lateinit var edtWidth: TextInputLayout
-    private lateinit var edtHeight : TextInputLayout
-    private lateinit var tvResult : TextView
-    private lateinit var btnResult : Button
+    private lateinit var edtLength  : TextInputLayout
+    private lateinit var edtWidth   : TextInputLayout
+    private lateinit var edtHeight  : TextInputLayout
+    private lateinit var btnResult  : Button
+    private lateinit var binding    : ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView (R.layout.activity_main)
-        edtLength = findViewById (R.id.edt_length)
-        edtWidth = findViewById (R.id.edt_width)
-        edtHeight = findViewById (R.id.edt_height)
-        btnResult = findViewById (R.id.btn_result)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView (binding.root)
+
+        edtLength   = binding.edtLength
+        edtWidth    = binding.edtWidth
+        edtHeight   = binding.edtHeight
+        btnResult   = binding.btnResult
 
         btnResult.setOnClickListener(this)
 
     }
-
-
-
     override fun onClick(view: View?) {
-
         when(view?.id) {
             R.id.btn_result->{
                 val getLength = edtLength.editText?.text.toString().trim()
@@ -52,8 +49,6 @@ class MainActivity : AppCompatActivity() , View.OnClickListener{
                 }
                 val result =
                     getLength.toDouble() * getWidth.toDouble() * getHeight.toDouble()
-
-
 
                 val intent = Intent(this@MainActivity,ResultActivity::class.java)
                 intent.putExtra(ResultActivity.RESULT,result.toString())
